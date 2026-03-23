@@ -10,7 +10,7 @@ MVP de análise de prateleira com IA rodando no navegador e opção de detecçã
 - Detecção de objetos com COCO-SSD (TensorFlow.js)
 - OCR global e regional (Tesseract.js) para reconhecer marcas escritas na embalagem
 - Heurísticas de segmentação e assinatura de cor para reforçar marcas difíceis de ler
-- Bounding boxes com confiança
+- Bounding boxes com confiança "Caixas delimitadoras"
 - Contagem de produtos
 - Share de prateleira por item
 - Análise de layout (esquerda/centro/direita)
