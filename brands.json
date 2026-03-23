@@ -1,0 +1,194 @@
+{
+  "version": "1.2",
+  "description": "Catálogo de marcas ShelfVision. Para adicionar uma marca edite apenas este arquivo — zero alterações no código.",
+  "schema": {
+    "id":               "string — identificador único (minúsculas, sem espaços)",
+    "canonical":        "string — nome de exibição oficial",
+    "category":         "snack | beverage | dairy | hygiene | cleaning | other",
+    "aliases":          "string[] — variações OCR normalizadas (minúsculas, sem acentos/pontuação)",
+    "ocrPatterns":      "{ type: contains|startsWith|endsWith, value, [minLength], [startsWithAny] }[]",
+    "colorSignatures":  "{ hueMin, hueMax (0-360), satMin, briMin (0-255) }[]",
+    "detectionProfile": "{ colorSufficient: bool, rules: [{ requiresOCR, requiresColor, minCount }] }"
+  },
+
+  "brands": [
+    {
+  "id": "doritos",
+  "canonical": "Doritos",
+  "category": "snack",
+  "aliases": ["doritos", "nacho", "tortilla", "ritos", "triangulo"],
+  "ocrPatterns": [
+    { "type": "contains", "value": "ritos", "minLength": 5 },
+    { "type": "startsWith", "value": "dor", "minLength": 4 }
+  ],
+  "colorSignatures": [
+    { "description": "Vermelho Plástico (menos saturado)", "hueMin": 5, "hueMax": 30, "satMin": 60, "briMin": 60 },
+    { "description": "Amarelo Doritos", "hueMin": 40, "hueMax": 55, "satMin": 80, "briMin": 70 }
+    
+  ],
+  "detectionProfile": {
+    "colorSufficient": false,
+    "rules": [
+      { "description": "Exige OCR para evitar confusão com bebidas", "requiresOCR": true, "requiresColor": true, "minCount": 1 }
+    ]
+  }
+},
+    {
+      "id": "fandangos",
+      "canonical": "Fandangos",
+      "category": "snack",
+      "aliases": [
+        "fandangos", "fandango", "fandang", "fanda", "dango"
+      ],
+      "ocrPatterns": [
+        { "type": "contains", "value": "fandang" },
+        { "type": "contains", "value": "ndangos" },
+        { "type": "contains", "value": "andango" },
+        { "type": "contains", "value": "fanda"   },
+        { "type": "contains", "value": "dango"   }
+      ],
+      "colorSignatures": [
+        { "hueMin":  75, "hueMax": 145, "satMin": 60, "briMin": 50 },
+        { "hueMin":  35, "hueMax":  75, "satMin": 80, "briMin": 80 }
+      ],
+      "detectionProfile": {
+        "colorSufficient": false,
+        "rules": [
+          { "description": "OCR confirma o nome",               "requiresOCR": true,  "requiresColor": false, "minCount": 1 },
+          { "description": "Alta repetição com cor compatível", "requiresOCR": false, "requiresColor": true,  "minCount": 3 }
+        ]
+      }
+    },
+
+    {
+      "id": "ruffles",
+      "canonical": "Ruffles",
+      "category": "snack",
+      "aliases": [
+        "ruffles", "rufles", "ruflles", "ruflese",
+        "rufly", "rufiy",
+        "rvffles", "rvfles", "raffles", "ruffes", "ruffls", "rufffy"
+      ],
+      "ocrPatterns": [
+        { "type": "startsWith", "value": "ruf", "minLength": 3 },
+        { "type": "startsWith", "value": "rvf", "minLength": 3 }
+      ],
+      "colorSignatures": [
+        { "hueMin": 200, "hueMax": 260, "satMin": 60, "briMin": 50 },
+        { "hueMin":  35, "hueMax":  65, "satMin": 80, "briMin": 80 }
+      ],
+      "detectionProfile": {
+        "colorSufficient": false,
+        "rules": [
+          { "description": "OCR confirma o nome", "requiresOCR": true, "requiresColor": false, "minCount": 1 },
+          { "description": "OCR + cor azul/amarelo em caso limítrofe", "requiresOCR": true, "requiresColor": true, "minCount": 2 }
+        ]
+      }
+    },
+
+    {
+      "id": "coca-cola",
+      "canonical": "Coca-Cola",
+      "category": "beverage",
+      "aliases": ["cocacola","coca", "cola", "zero", "classic", "coke", "oca", "ola"],
+      "ocrPatterns": [
+        { "type": "contains", "value": "cola", "minLength": 3 },
+        { "type": "contains", "value": "coca", "minLength": 3 },
+        { "type": "contains", "value": "zero", "minLength": 4 }
+      ],
+    "colorSignatures": [
+      { "description": "Vermelho Coca Puro (Alta Saturação)", "hueMin": 355, "hueMax": 5, "satMin": 92, "briMin": 30 }
+    ],
+    "detectionProfile": {
+     "colorSufficient": false,
+    "rules": [
+        { "description": "Obrigatório OCR de 4+ letras para validar lata", "requiresOCR": true, "requiresColor": true, "minCount": 1 },
+        { "description": "Apenas por cor se houver uma massa enorme de latas (frente de gôndola)", "requiresOCR": false, "requiresColor": true, "minCount": 6 }
+      ]
+      }
+    },
+
+        {
+      "id": "fanta",
+      "canonical": "Fanta",
+      "category": "beverage",
+      "aliases": ["fanta"],
+      "ocrPatterns": [
+        { "type": "contains", "value": "fanta" }
+      ],
+      "colorSignatures": [
+        { "hueMin": 13, "hueMax": 28, "satMin": 90, "briMin": 80 }
+      ],
+      "detectionProfile": {
+        "colorSufficient": true,
+        "rules": [
+          { "description": "Laranja Fanta é única — cor sozinha com repetição basta", "requiresOCR": false, "requiresColor": true,  "minCount": 2 },
+          { "description": "OCR confirma sem exigir cor",                              "requiresOCR": true,  "requiresColor": false, "minCount": 1 }
+        ]
+      }
+    },
+
+    {
+    "id": "sprite",
+    "canonical": "Sprite",
+    "category": "beverage",
+    "aliases": ["sprite", "sprit", "spte", "sprie", "ite", "rite", "prit", "pit"],
+    "ocrPatterns": [
+      { "type": "contains", "value": "sprit" },
+      { "type": "contains", "value": "ite", "minLength": 3 },
+      { "type": "contains", "value": "ri", "minLength": 2 }
+    ],
+    "colorSignatures": [
+      { 
+        "description": "Verde Sprite Ajustado para Reflexos", 
+        "hueMin": 100, 
+        "hueMax": 155, 
+        "satMin": 50, 
+        "briMin": 40 
+      }
+    ],
+    "detectionProfile": {
+      "colorSufficient": true,
+      "rules": [
+        { "description": "Verde Sprite com repetição mínima", "requiresOCR": false, "requiresColor": true, "minCount": 2 },
+        { "description": "OCR de fragmentos pequenos", "requiresOCR": true, "requiresColor": true, "minCount": 1 },
+        { "description": "OCR isolado (caso a lata esteja na sombra)", "requiresOCR": true, "requiresColor": false, "minCount": 1 }
+      ]
+    }
+  },
+
+    {
+      "id": "pepsi",
+      "canonical": "Pepsi",
+      "category": "beverage",
+      "aliases": ["pepsi"],
+      "ocrPatterns": [],
+      "colorSignatures": [
+        { "hueMin": 200, "hueMax": 255, "satMin": 80, "briMin": 40 }
+      ],
+      "detectionProfile": {
+        "colorSufficient": false,
+        "rules": [
+          { "description": "OCR confirma — azul conflita com Ruffles", "requiresOCR": true, "requiresColor": false, "minCount": 1 }
+        ]
+      }
+    },
+
+    {
+      "id": "guarana",
+      "canonical": "Guaraná",
+      "category": "beverage",
+      "aliases": ["guarana"],
+      "ocrPatterns": [],
+      "colorSignatures": [
+        { "hueMin": 75, "hueMax": 145, "satMin": 70, "briMin": 40 }
+      ],
+      "detectionProfile": {
+        "colorSufficient": false,
+        "rules": [
+          { "description": "OCR confirma o nome", "requiresOCR": true, "requiresColor": false, "minCount": 1 }
+        ]
+      }
+    }
+  ]
+}

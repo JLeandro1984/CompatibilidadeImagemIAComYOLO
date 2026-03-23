@@ -1,0 +1,6 @@
+path: C:/Users/jloliveira/OneDrive - Neogrid/Área de Trabalho/Projetos - App uteis/CompatibilidadeImagem/dataset
+train: images/train
+val: images/val
+
+nc: 6
+names: ['Doritos', 'Coca-cola', 'Sprite', 'Fandangos', 'Fanta', 'Ruffles']

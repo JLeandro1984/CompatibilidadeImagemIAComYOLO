@@ -1,0 +1,37 @@
+python -m http.server 8000
+
+=========================================
+Git Bash - Rodar backend
+cmd.exe /c ".\start-backend-real.bat"
+
+front-end 
+python -m http.server 8000
+
+Abra no navegador: http://127.0.0.1:8000
+
+Depois, em outro terminal:
+- `python -m http.server 8000`
+- abra `http://127.0.0.1:8000` e configure backend URL como `http://127.0.0.1:8001`
+
+
+
+=====================================================================================
+Ran terminal command: Get-Location; Test-Path .\start-backend-real.bat
+
+O erro foi por shell: no seu contexto, o comando foi rodado no terminal bash e retornou Exit Code 127 (comando não encontrado para .bat).
+
+Use assim:
+
+- No PowerShell/CMD (recomendado):  
+  start-backend-real.bat
+- Se estiver no Git Bash:  
+ cmd.exe /c ".\start-backend-real.bat"
+
+Arquivos corretos:
+- start-backend-real.bat
+- start-backend-mock.bat
+
+Se ainda falhar no modo real, o próximo erro mais comum é falta do modelo em backend/model/best.pt; nesse caso testa primeiro com mock:
+- start-backend-mock.bat
+
+Se quiser, eu te guio no próximo passo e validamos o backend em http://127.0.0.1:8001/health em 1 minuto.
